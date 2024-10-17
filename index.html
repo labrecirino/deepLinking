@@ -32,8 +32,8 @@
 
       if (isInInstagramApp) {
         if (isAndroid) {
-          // Redireciona para o Chrome no Android usando Intent
-          redirectWithQueryParams(`intent://${targetUrl}#Intent;scheme=https;package=com.android.chrome;end`);
+          // Redireciona para o Chrome no Android usando Intent sem https:// na URL base
+          redirectWithQueryParams(`intent://meucartao.senff.com.br/atack/bem-vindo#Intent;scheme=https;package=com.android.chrome;end`);
         } else if (isIOS) {
           // Redireciona diretamente no Safari no iOS
           redirectWithQueryParams(targetUrl);
