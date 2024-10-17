@@ -16,7 +16,7 @@
       function redirectWithQueryParams(baseUrl) {
         const queryString = getQueryStringParams();
         const fullUrl = queryString ? `${baseUrl}?${queryString}` : baseUrl;
-        window.location.href = fullUrl;
+        window.location.replace(fullUrl);  // window.location.replace() em vez de window.location.href
       }
 
       // Detecta o sistema operacional (Android ou iOS)
@@ -28,7 +28,7 @@
       const isInInstagramApp = !!userAgent.match(/Instagram/i);
 
       // URL da página de destino (o site real para onde quer redirecionar)
-      const targetUrl = "https://meucartao.senff.com.br/atack/bem-vindo";
+      const targetUrl = "https://meucartao.senff.com.br/atack/bem-vindo"; // URL absoluta com https
 
       if (isInInstagramApp) {
         if (isAndroid) {
