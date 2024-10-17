@@ -11,32 +11,32 @@
         const params = new URLSearchParams(window.location.search);
         return params.toString(); // Retorna os parâmetros no formato 'key=value&key2=value2'
       }
-  
+
       // Função para redirecionar com parâmetros da query string
       function redirectWithQueryParams(baseUrl) {
         const queryString = getQueryStringParams();
         const fullUrl = `${baseUrl}?${queryString}`;
         window.location.href = fullUrl;
       }
-  
+
       // Detecta o sistema operacional (Android ou iOS)
       const userAgent = window.navigator.userAgent || window.navigator.vendor || window.opera;
       const isAndroid = /android/i.test(userAgent);
       const isIOS = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
-  
+
       // Verifica se está no WebView do Instagram
       const isInInstagramApp = !!userAgent.match(/Instagram/i);
-  
+
       // URL da página de destino (o site real para onde quer redirecionar)
-      const targetUrl = "https://meucartao.senff.com.br/atack/bem-vindo";
-  
+      const targetUrl = "meucartao.senff.com.br/atack/bem-vindo";
+
       if (isInInstagramApp) {
         if (isAndroid) {
           // Redireciona para o Chrome no Android usando Intent
-          redirectWithQueryParams(`intent://open/?url=${targetUrl}#Intent;scheme=https;package=com.android.chrome;end`);
+          redirectWithQueryParams(`intent://${targetUrl}#Intent;scheme=https;package=com.android.chrome;end`);
         } else if (isIOS) {
-          // Redireciona diretamente no Safari no iOS
-          redirectWithQueryParams(targetUrl);
+          // Redireciona para o Safari no iOS usando esquema específico
+          redirectWithQueryParams(`x-web-search://${targetUrl}`);
         } else {
           // Se não for Android nem iOS, redireciona para o navegador normal
           redirectWithQueryParams(targetUrl);
@@ -46,7 +46,7 @@
         redirectWithQueryParams(targetUrl);
       }
     };
-  </script>  
+  </script>
 </head>
 <body>
   <h1>Redirecionando...</h1>
