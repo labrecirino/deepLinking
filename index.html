@@ -19,11 +19,6 @@
         window.location.replace(fullUrl);  // window.location.replace() em vez de window.location.href
       }
 
-      // Função para forçar a abertura do navegador externo no iOS
-      function openInSafari(url) {
-        window.open(url, '_blank');  // Força a abertura de uma nova aba no navegador externo
-      }
-
       // Detecta o sistema operacional (Android ou iOS)
       const userAgent = window.navigator.userAgent || window.navigator.vendor || window.opera;
       const isAndroid = /android/i.test(userAgent);
@@ -40,8 +35,8 @@
           // Redireciona para o Chrome no Android usando Intent sem https:// na URL base
           redirectWithQueryParams(`intent://meucartao.senff.com.br/atack/bem-vindo#Intent;scheme=https;package=com.android.chrome;end`);
         } else if (isIOS) {
-          // Redireciona para o Safari no iOS forçando uma nova aba
-          openInSafari(targetUrl);
+          // Redireciona usando x-web-search:// para abrir no Safari no iOS
+          redirectWithQueryParams(`x-web-search://${targetUrl}`);
         } else {
           // Se não for Android nem iOS, redireciona para o navegador normal
           redirectWithQueryParams(targetUrl);
