@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redirecionamento</title>
+  <script>
+    window.onload = function() {
+      // Função para obter os parâmetros da query string e reformatá-los para a nova URL
+      function getQueryStringParams() {
+        const params = new URLSearchParams(window.location.search);
+        return params.toString(); // Retorna os parâmetros no formato 'key=value&key2=value2'
+      }
+
+      // Função para redirecionar com parâmetros da query string
+      function redirectWithQueryParams(baseUrl) {
+        const queryString = getQueryStringParams();
+        const fullUrl = `${baseUrl}?${queryString}`;
+        window.location.href = fullUrl;
+      }
+
+      // Detecta o sistema operacional (Android ou iOS)
+      const userAgent = window.navigator.userAgent || window.navigator.vendor || window.opera;
+      const isAndroid = /android/i.test(userAgent);
+      const isIOS = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
+
+      // Verifica se está no WebView do Instagram
+      const isInInstagramApp = !!userAgent.match(/Instagram/i);
+
+      // URL da página de destino (o site real para onde quer redirecionar)
+      const targetUrl = "https://seu-site.com";
+
+      if (isInInstagramApp) {
+        if (isAndroid) {
+          // Redireciona para o Chrome no Android usando Intent
+          redirectWithQueryParams(`intent://navigate?url=${targetUrl}#Intent;scheme=https;package=com.android.chrome;end`);
+        } else if (isIOS) {
+          // Redireciona para o Safari no iOS usando esquema específico
+          redirectWithQueryParams(`x-web-search://navigate?url=${targetUrl}`);
+        } else {
+          // Se não for Android nem iOS, redireciona para o navegador normal
+          redirectWithQueryParams(targetUrl);
+        }
+      } else {
+        // Se não estiver no Instagram, redireciona para o URL de destino normalmente
+        redirectWithQueryParams(targetUrl);
+      }
+    };
+  </script>
+</head>
+<body>
+  <h1>Redirecionando...</h1>
+</body>
+</html>
