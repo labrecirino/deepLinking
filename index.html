@@ -33,7 +33,7 @@
       if (isInInstagramApp) {
         if (isAndroid) {
           // Redireciona para o Chrome no Android usando Intent
-          redirectWithQueryParams(`intent://open/?url=${targetUrl}#Intent;scheme=https;package=com.android.chrome;end`);
+          redirectWithQueryParams(`intent://${targetUrl}#Intent;scheme=https;package=com.android.chrome;end`);
         } else if (isIOS) {
           // Redireciona diretamente no Safari no iOS
           redirectWithQueryParams(targetUrl);
